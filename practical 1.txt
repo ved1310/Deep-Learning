@@ -1,0 +1,40 @@
+A) Tensorflow Test Program
+
+import tensorflow as tf
+
+print(tf.__version__)
+
+print(tf.reduce_sum(tf.random.normal([1000,1000])))
+
+B) Keras Test Program
+
+from keras import datasets
+
+(train_images,train_labels),(test_images,test_labels)=datasets.mnist.load_data()
+
+train_images.shape,test_images.shape
+
+C) Theano Test Program
+
+import numpy
+
+import theano.tensor as T
+
+from theano import function
+
+
+x = T.dscalar('x')
+y = T.dscalar('y')
+
+z = x + y
+
+f = function([x,y],z)
+
+f(5,7)
+
+D) PyTorch Test Program
+
+import torch
+
+
+print(torch.__version__)
