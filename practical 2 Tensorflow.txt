@@ -1,40 +1,33 @@
-#importing necessary libraries
+# Step 1: Import The Necessary Packages
 
 import tensorflow as tf
 from tensorflow import keras
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-#import dataset and split into train and test data
-mnist = tf.keras.datasets.mnist
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+# Step 2: Load The Training And Testing Data
 
-#show the 0th index image
-plt.imshow(-x_train[0])
+mnist=tf.keras.datasets.mnist
+(x_train,y_train),(x_test,y_test)=mnist.load_data()
 
-#
-x_train = x_train / 255
-x_test = x_test / 255
+x_train=x_train/255
+x_test=x_test/255
 
-#build model
-model = keras.Sequential([
-keras.layers.Flatten(input_shape=(28, 28)),
-keras.layers.Dense(128, activation="relu"),
-keras.layers.Dense(10, activation="softmax")
+# Steps 3: Define the Neural Architechture Using 
+
+model=keras.Sequential([
+keras.layers.Flatten(input_shape=(28,28)),
+keras.layers.Dense(128,activation='relu'),
+keras.layers.Dense(10,activation='softmax')
 ])
 model.summary()
 
-#Compile
-model.compile(optimizer="sgd",
-loss="sparse_categorical_crossentropy",
-metrics=['accuracy'])
+# Step 4: Train the  Model Using sgd
+model.compile(optimizer='sgd',loss="sparse_categorical_crossentropy",metrics=['accuracy'])
+history=model.fit(x_train,y_train,validation_data=(x_test,y_test),epochs=3)
 
-#Fit The Model
-history=model.fit(x_train, y_train,validation_data=(x_test,y_test),epochs=10)
+# Step 5: Evaluate The Network
 
-#evaluate loss & accuracy
 test_loss,test_acc=model.evaluate(x_test,y_test)
 print("Loss=%.3f" %test_loss)
 print("Accuracy=%.3f" %test_acc)
@@ -46,26 +39,24 @@ plt.show()
 
 #predicted value
 predicted_value=model.predict(x_test)
-plt.imshow(x_test[n])
-plt.show()
-print(predicted_value[n])
+print("predicted_value: ",predicted_value[n])
 
-#plot the accuracy
+Step 6: Plot the Training Loss And Accuracy
+
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
-plt.title('model accuracy')
-plt.ylabel('accuracy')
-plt.xlabel('epoch')
-plt.legend(['Train', 'Validation'], loc='upper left')
+plt.title("Accuracy Model")
+plt.xlabel("epochs")
+plt.ylabel("Accuracy")
+plt.legend(['Train','Validation'],loc='upper right')
 plt.show()
 
-#plot the accuracy
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
-plt.title('model loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['Train', 'Validation'], loc='upper left')
+plt.title("Loss Model")
+plt.xlabel("epochs")
+plt.ylabel("loss")
+plt.legend(['Train','Validation'],loc='upper right')
 plt.show()
 
 
