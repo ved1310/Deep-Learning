@@ -41,7 +41,7 @@ plt.show()
 predicted_value=model.predict(x_test)
 print("predicted_value: ",predicted_value[n])
 
-Step 6: Plot the Training Loss And Accuracy
+#Step 6: Plot the Training Loss And Accuracy
 
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
